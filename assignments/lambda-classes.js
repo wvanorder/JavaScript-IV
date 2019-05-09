@@ -30,11 +30,14 @@ class Instructor extends Person{
         var gradedSubject;
         tempNum = Math.ceil(Math.random() * 100);
         if (tempNum <= (100 / student.favSubjects.length)) {
-            gradedSubject = student.favSubjects[0];
+            gradedSubject = student.favSubjects[0].subject;
+            var subjectIndex = 0;
         } else if (tempNum > (100 / student.favSubjects.length) && tempNum <= ((100 / student.favSubjects.length) * 2)) {
-            gradedSubject = student.favSubjects[1];
+            gradedSubject = student.favSubjects[1].subject;
+            var subjectIndex = 1;
         } else {
-            gradedSubject = student.favSubjects[2];
+            gradedSubject = student.favSubjects[2].subject;
+            var subjectIndex = 2;
         };
         console.log(`Good morning, ${student.name}. I just finished looking over your assignment in ${gradedSubject}.`);
         var gradeOdds = Math.ceil(Math.random() * 100);
@@ -48,11 +51,9 @@ class Instructor extends Person{
         };
 
         student.grade += gradeImpact;
-       console.log(`Here you are, ${student.name}. your assignment score changed your grade to ${student.grade}.`);
+       console.log(`Here you are, ${student.name}. your assignment score changed your average grade to ${Math.round(student.grade)}.`);
        return `${student.graduate()}`;
-
-
-    }
+    };
 }
 
 class Student extends Person {
@@ -97,10 +98,10 @@ class ProjectManager extends Instructor{
         this.favInstructor = topDog.favInstructor;
     }
     standUp(channel) {
-        console.log(`${this.name} announces to ${channel}, @channel standy times!`);
+        return console.log(`${this.name} announces to ${channel}, @channel standy times!`);
     }
     debugsCode(student, subject) {
-        console.log(`${this.name} debugs ${student.name}'s code on ${subject}.`);
+        return console.log(`${this.name} debugs ${student.name}'s code on ${subject}.`);
     }
 }
 
@@ -174,9 +175,9 @@ const dan = new Student ({
     location: 'Anchorage',
     previousBackground: 'lawyer',
     className: 'WEB20',
-    favSubjects: ['debate', 'math', 'physics'],
-    grade: 64,
+    favSubjects: [{'subject': 'Math', 'grade': 40},{'subject': 'English', 'grade': 92}, {'subject': 'Programming', 'grade': 64}],
     studentInstructor: chris,
+    grade: 75,
     smarts: 5.1,
 });
 
@@ -187,11 +188,95 @@ const brooke = new Student ({
     previousBackground: 'Banker',
     className: 'WEB20',
     favSubjects: ['guitar', 'javascript', 'python', 'salsa dancing'],
-    grade: 76,
+    grade: 80,
     studentInstructor: georgeMichael,
     smarts: 9.6,
 });
+console.log(dan);
+chris.gradePaper(dan);
+console.log(dan);
 
 
 
-dan.listsSubjects();
+// /* [{subject: 'Math', grade: 80},{subject: 'English', grade: 92}, {subject: 'Programming', grade: 64}]*/
+// /*
+// class Instructor extends Person{
+//     constructor(duper) {
+//         super(duper);
+//         this.specialty = duper.specialty;
+//         this.favLanguage = duper.favLanguage;
+//         this.catchPhrase = duper.catchPhrase;
+//         this.toughness = duper.toughness;
+//     }
+//     demo(subject) {
+//         return console.log(`Today we are learning about ${subject}.`);
+//     }
+//     grade(student, subject) {
+//         return console.log(`${student.name} receives a perfect score on ${subject}`);
+//     }
+//     gradePaper(student) {
+//         var tempNum = 0;
+//         var gradedSubject;
+//         tempNum = Math.ceil(Math.random() * 100);
+//         if (tempNum <= (100 / student.favSubjects.length)) {
+//             gradedSubject = student.favSubjects[0].subject;
+//             var subjectIndex = 0;
+//         } else if (tempNum > (100 / student.favSubjects.length) && tempNum <= ((100 / student.favSubjects.length) * 2)) {
+//             gradedSubject = student.favSubjects[1].subject;
+//             var subjectIndex = 1;
+//         } else {
+//             gradedSubject = student.favSubjects[2].subject;
+//             var subjectIndex = 2;
+//         };
+//         console.log(`Good morning, ${student.name}. I just finished looking over your assignment in ${gradedSubject}.`);
+//         var gradeOdds = Math.ceil(Math.random() * 100);
+//         var gradeImpact;
+//         if (gradeOdds <= (50 - student.smarts)) {
+//             gradeImpact = (-20 + (student.smarts - this.toughness));
+//         } else if (gradeOdds > (50 - student.smarts) && gradeOdds <= (75 - student.smarts)) {
+//             gradeImpact = 0 + (student.smarts - this.toughness);
+//         } else {
+//             gradeImpact = 15 + (student.smarts - this.toughness);
+//         };
+
+//         student.favSubjects[subjectIndex].grade += gradeImpact;
+//         student.grade;
+//        console.log(`Here you are, ${student.name}. your assignment score changed your class grade to ${student.favSubjects[subjectIndex].grade} and your average grade to ${student.grade}.`);
+//        return `${student.graduate()}`;
+//     };
+// }
+
+// class Student extends Person {
+//     constructor(studentStuff) {
+//         super(studentStuff);
+//         this.previousBackground = studentStuff.previousBackground;
+//         this.className = studentStuff.className;
+//         this.favSubjects = studentStuff.favSubjects;
+//         this.grade = studentStuff.favSubjects.reduce((total, theGrade) => { return (total + theGrade.grade);}, 0) / studentStuff.favSubjects.length;
+//         this.studentInstructor = studentStuff.studentInstructor;
+//         this.smarts = studentStuff.smarts;
+//     }
+//     listsSubjects() {
+        
+//             var last = this.favSubjects.pop();
+//             return console.log(`${this.name}'s favorite subjects are ${this.favSubjects.join(', ')} and ${last}.`);
+//         // console.log(`${this.name}'s favorite subjects are`);
+//         // this.favSubjects.forEach((subjectListed) => {
+//         //     console.log(subjectListed);
+//         // });
+//     }
+
+//     PRAssignment(subject) {
+//     return console.log(`${this.name} has submitted a PR for ${subject}.`);
+//     }
+//     sprintChallenge(subject) {
+//         return console.log(`${this.name} has begun sprint challenge on ${subject}.`);
+//     }
+//     graduate() {
+//         if (this.grade > 70) {
+//             return console.log(`${this.studentInstructor.name} is the best teacher ever! time to go off into the real world and make a difference!`);
+//         } else {
+//             return console.log(`${this.studentInstructor.name} sucks. Time to drop out and be a pro twitch streamer.`);
+//         }
+//     }
+// }
