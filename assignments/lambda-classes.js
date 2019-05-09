@@ -70,12 +70,12 @@ class Student extends Person {
 
     listsSubjects() {
         
-            var last = this.favSubjects.pop();
-            return console.log(`${this.name}'s favorite subjects are ${this.favSubjects.join(', ')} and ${last}.`);
-        // console.log(`${this.name}'s favorite subjects are`);
-        // this.favSubjects.forEach((subjectListed) => {
-        //     console.log(subjectListed);
-        // });
+            // var last = this.favSubjects.pop();
+            // return console.log(`${this.name}'s favorite subjects are ${this.favSubjects.join(', ')} and ${last}.`);
+        console.log(`${this.name}'s favorite subjects are`);
+        this.favSubjects.forEach((subjectListed) => {
+            console.log(subjectListed.subject);
+        });
     }
 
     PRAssignment(subject) {
@@ -196,6 +196,7 @@ const brooke = new Student ({
 });
 
 chris.gradePaper(brooke);
+dan.listsSubjects();
 
 
 
