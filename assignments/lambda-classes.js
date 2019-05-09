@@ -24,6 +24,32 @@ class Instructor extends Person{
     grade(student, subject) {
         return console.log(`${student.name} receives a perfect score on ${subject}`);
     }
+    gradePaper(student) {
+        var tempNum = 0;
+        var gradedSubject;
+        tempNum = Math.ceil(Math.random() * 100);
+        if (tempNum <= (100 / student.favSubjects.length)) {
+            gradedSubject = student.favSubjects[0];
+        } else if (tempNum > (100 / student.favSubjects.length) && tempNum <= ((100 / student.favSubjects.length) * 2)) {
+            gradedSubject = student.favSubjects[1];
+        } else {
+            gradedSubject = student.favSubjects[2];
+        };
+        console.log(`Good morning, ${student.name}. I just finished looking over your assignment in ${gradedSubject}.`);
+        var gradeOdds = Math.ceil(Math.random() * 100);
+        var gradeImpact;
+        if (gradeOdds <= 50) {
+            gradeImpact = -20;
+        } else if (gradeOdds > 50 && gradeOdds <= 75) {
+            gradeImpact = 0;
+        } else {
+            gradeImpact = 15;
+        };
+        student.grade += gradeImpact;
+        return console.log(`Here you are, ${student.name}. your assignment score changed your grade to ${student.grade}.`);
+
+
+    }
 }
 
 class Student extends Person {
@@ -32,6 +58,7 @@ class Student extends Person {
         this.previousBackground = studentStuff.previousBackground;
         this.className = studentStuff.className;
         this.favSubjects = studentStuff.favSubjects;
+        this.grade = studentStuff.grade;
     }
     listsSubjects() {
         this.favSubjects.forEach((subjectListed) => {
@@ -79,7 +106,8 @@ const dan = new Student ({
     location: 'Anchorage',
     previousBackground: 'lawyer',
     className: 'WEB20',
-    favSubjects: ['debate', 'math', 'physics']
+    favSubjects: ['debate', 'math', 'physics'],
+    grade: 50,
 });
 
 const brooke = new Student ({
@@ -88,7 +116,8 @@ const brooke = new Student ({
     location: 'Juneau',
     previousBackground: 'Banker',
     className: 'WEB20',
-    favSubjects: ['guitar', 'javascript', 'python', 'salsa dancing']
+    favSubjects: ['guitar', 'javascript', 'python', 'salsa dancing'],
+    grade: 76,
 });
 
 const chris = new Instructor ({
@@ -123,10 +152,15 @@ const larry = new ProjectManager({
 
 const hagrid = new ProjectManager({
 name: 'Hagrid',
-age: 97,Hogwartsa retirement home',
+age: 97,
+location: 'Hogwarts retirement home',
 specialty: 'Being freaking tall!',
 favLanguage: 'Ruby',
 catchPhrase: `You're a wizard, Harry!`,
 gradClassName: 'Fantastic Beasts and Where To Find Them',
 favInstructor: chris,
 });
+
+
+georgeMichael.gradePaper(brooke);
+console.log(brooke.grade);
