@@ -45,8 +45,10 @@ class Instructor extends Person{
         } else {
             gradeImpact = 15;
         };
+
         student.grade += gradeImpact;
-        return console.log(`Here you are, ${student.name}. your assignment score changed your grade to ${student.grade}.`);
+       console.log(`Here you are, ${student.name}. your assignment score changed your grade to ${student.grade}.`);
+       return `${student.graduate()}`;
 
 
     }
@@ -59,6 +61,7 @@ class Student extends Person {
         this.className = studentStuff.className;
         this.favSubjects = studentStuff.favSubjects;
         this.grade = studentStuff.grade;
+        this.studentInstructor = studentStuff.studentInstructor
     }
     listsSubjects() {
         this.favSubjects.forEach((subjectListed) => {
@@ -71,6 +74,13 @@ class Student extends Person {
     }
     sprintChallenge(subject) {
         return console.log(`${this.name} has begun sprint challenge on ${subject}.`);
+    }
+    graduate() {
+        if (this.grade > 70) {
+            return console.log(`${this.studentInstructor.name} is the best teacher ever! time to go off into the real world and make a difference!`);
+        } else {
+            return console.log(`${this.studentInstructor.name} sucks. Time to drop out and be a pro twitch streamer.`);
+        }
     }
 }
 
@@ -100,25 +110,9 @@ const leah = new Person({
     location: 'Alaska',
 });
 
-const dan = new Student ({
-    name: 'Dan',
-    age: 28,
-    location: 'Anchorage',
-    previousBackground: 'lawyer',
-    className: 'WEB20',
-    favSubjects: ['debate', 'math', 'physics'],
-    grade: 50,
-});
 
-const brooke = new Student ({
-    name: 'Brooke',
-    age: 27,
-    location: 'Juneau',
-    previousBackground: 'Banker',
-    className: 'WEB20',
-    favSubjects: ['guitar', 'javascript', 'python', 'salsa dancing'],
-    grade: 76,
-});
+
+
 
 const chris = new Instructor ({
 name: 'Chris',
@@ -162,5 +156,30 @@ favInstructor: chris,
 });
 
 
-georgeMichael.gradePaper(brooke);
-console.log(brooke.grade);
+
+
+const dan = new Student ({
+    name: 'Dan',
+    age: 28,
+    location: 'Anchorage',
+    previousBackground: 'lawyer',
+    className: 'WEB20',
+    favSubjects: ['debate', 'math', 'physics'],
+    grade: 50,
+    studentInstructor: chris,
+});
+
+const brooke = new Student ({
+    name: 'Brooke',
+    age: 27,
+    location: 'Juneau',
+    previousBackground: 'Banker',
+    className: 'WEB20',
+    favSubjects: ['guitar', 'javascript', 'python', 'salsa dancing'],
+    grade: 76,
+    studentInstructor: georgeMichael,
+});
+
+
+
+chris.gradePaper(dan);
