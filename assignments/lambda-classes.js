@@ -17,6 +17,7 @@ class Instructor extends Person{
         this.specialty = duper.specialty;
         this.favLanguage = duper.favLanguage;
         this.catchPhrase = duper.catchPhrase;
+        this.toughness = duper.toughness;
     }
     demo(subject) {
         return console.log(`Today we are learning about ${subject}.`);
@@ -38,12 +39,12 @@ class Instructor extends Person{
         console.log(`Good morning, ${student.name}. I just finished looking over your assignment in ${gradedSubject}.`);
         var gradeOdds = Math.ceil(Math.random() * 100);
         var gradeImpact;
-        if (gradeOdds <= 50) {
-            gradeImpact = -20;
-        } else if (gradeOdds > 50 && gradeOdds <= 75) {
-            gradeImpact = 0;
+        if (gradeOdds <= (50 - student.smarts)) {
+            gradeImpact = (-20 + (student.smarts - this.toughness));
+        } else if (gradeOdds > (50 - student.smarts) && gradeOdds <= (75 - student.smarts)) {
+            gradeImpact = 0 + (student.smarts - this.toughness);
         } else {
-            gradeImpact = 15;
+            gradeImpact = 15 + (student.smarts - this.toughness);
         };
 
         student.grade += gradeImpact;
@@ -61,7 +62,8 @@ class Student extends Person {
         this.className = studentStuff.className;
         this.favSubjects = studentStuff.favSubjects;
         this.grade = studentStuff.grade;
-        this.studentInstructor = studentStuff.studentInstructor
+        this.studentInstructor = studentStuff.studentInstructor;
+        this.smarts = studentStuff.smarts;
     }
     listsSubjects() {
         this.favSubjects.forEach((subjectListed) => {
@@ -121,6 +123,7 @@ location: 'Nobody knows',
 specialty: 'How to make French Toast',
 favLanguage: 'SQL',
 catchphrase: 'Show Me Ya Moves!',
+toughness: 1.8,
 });
 
 const georgeMichael = new Instructor ({
@@ -130,6 +133,7 @@ const georgeMichael = new Instructor ({
     specialty: 'double-banana',
     favLanguage: 'Java',
     catchphrase: 'Maybe I do',
+    toughness: 4,
 });
     
 
@@ -142,6 +146,7 @@ const larry = new ProjectManager({
     catchPhrase: 'Not today!',
     gradClassName: 'Staying Alive 101',
     favInstructor: georgeMichael,
+    toughness: 2.0,
 });
 
 const hagrid = new ProjectManager({
@@ -153,6 +158,7 @@ favLanguage: 'Ruby',
 catchPhrase: `You're a wizard, Harry!`,
 gradClassName: 'Fantastic Beasts and Where To Find Them',
 favInstructor: chris,
+toughness: 3,
 });
 
 
@@ -165,8 +171,9 @@ const dan = new Student ({
     previousBackground: 'lawyer',
     className: 'WEB20',
     favSubjects: ['debate', 'math', 'physics'],
-    grade: 50,
+    grade: 64,
     studentInstructor: chris,
+    smarts: 5.1,
 });
 
 const brooke = new Student ({
@@ -178,8 +185,9 @@ const brooke = new Student ({
     favSubjects: ['guitar', 'javascript', 'python', 'salsa dancing'],
     grade: 76,
     studentInstructor: georgeMichael,
+    smarts: 9.6,
 });
 
 
 
-chris.gradePaper(dan);
+larry.gradePaper(dan);
