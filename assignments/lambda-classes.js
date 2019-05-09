@@ -50,8 +50,9 @@ class Instructor extends Person{
             gradeImpact = 15 + (student.smarts - this.toughness);
         };
 
-        student.grade += gradeImpact;
-       console.log(`Here you are, ${student.name}. your assignment score changed your average grade to ${Math.round(student.grade)}.`);
+        student.favSubjects[subjectIndex].grade += gradeImpact;
+        student.grade += (gradeImpact / student.favSubjects.length);
+       console.log(`Here you are, ${student.name}. your assignment score changed your class grade to ${student.favSubjects[subjectIndex].grade} and your average grade to ${student.grade}.`);
        return `${student.graduate()}`;
     };
 }
@@ -66,6 +67,7 @@ class Student extends Person {
         this.studentInstructor = studentStuff.studentInstructor;
         this.smarts = studentStuff.smarts;
     }
+
     listsSubjects() {
         
             var last = this.favSubjects.pop();
@@ -192,10 +194,9 @@ const brooke = new Student ({
     studentInstructor: georgeMichael,
     smarts: 9.6,
 });
-logan.speak();
-hagrid.standUp('@WEB20');
+
 chris.gradePaper(brooke);
-console.log(dan);
+
 
 
 
@@ -253,10 +254,15 @@ class Student extends Person {
         this.previousBackground = studentStuff.previousBackground;
         this.className = studentStuff.className;
         this.favSubjects = studentStuff.favSubjects;
-        this.grade = studentStuff.favSubjects.reduce((total, theGrade) => { return (total + theGrade.grade);}, 0) / studentStuff.favSubjects.length;
+        this.avgGrade = student.newAverage;
         this.studentInstructor = studentStuff.studentInstructor;
         this.smarts = studentStuff.smarts;
     }
+        changeAverage() {
+        student.newAverage = studentStuff.favSubjects.reduce((total, theGrade) => { return (total + theGrade.grade);}, 0) / studentStuff.favSubjects.length;
+    }
+
+
     listsSubjects() {
         
             var last = this.favSubjects.pop();
