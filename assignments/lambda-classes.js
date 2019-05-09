@@ -66,9 +66,13 @@ class Student extends Person {
         this.smarts = studentStuff.smarts;
     }
     listsSubjects() {
-        this.favSubjects.forEach((subjectListed) => {
-            console.log(subjectListed);
-        });
+        
+            var last = this.favSubjects.pop();
+            return console.log(`${this.name}'s favorite subjects are ${this.favSubjects.join(', ')} and ${last}.`);
+        // console.log(`${this.name}'s favorite subjects are`);
+        // this.favSubjects.forEach((subjectListed) => {
+        //     console.log(subjectListed);
+        // });
     }
 
     PRAssignment(subject) {
@@ -190,4 +194,4 @@ const brooke = new Student ({
 
 
 
-larry.gradePaper(dan);
+dan.listsSubjects();
